@@ -1,0 +1,10 @@
+TABLA DE SIMBOLOS:
+------------------
+
+Lexema:                               Tipo:                                 Uso:
+
+@aux1                                 uinteger                          auxiliar
+2                                     uinteger                               cte
+1                                     uinteger                               cte
+@out1                                 string                                 out
+si, 2 es mayor que 1                  string                            cadMulti

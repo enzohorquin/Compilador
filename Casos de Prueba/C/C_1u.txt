@@ -1,0 +1,4 @@
+x,y,result:uinteger.
+x=10.
+y=0.
+result=x/y.

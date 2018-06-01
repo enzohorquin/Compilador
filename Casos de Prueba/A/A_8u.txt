@@ -1,0 +1,16 @@
+result2:uinteger.
+uinteger FUNCTION SUMA 
+{	x:uinteger.
+	x=3.
+	return (x).
+}
+
+uinteger FUNCTION SUMA
+{
+	x:uinteger.
+	x=2.
+	return (x).
+
+}
+
+result2 = SUMA().

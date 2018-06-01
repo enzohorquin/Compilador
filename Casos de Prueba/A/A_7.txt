@@ -1,0 +1,22 @@
+x:uinteger.
+
+x=2.
+uinteger FUNCTION SUMA 
+{	x:uinteger.
+	x=3.
+	
+	return (x).
+}
+
+
+x=SUMA().
+
+y:double.
+y=2,2.
+double FUNCTION SUMADOBLE
+{
+	x:double.
+	x=3,3.
+	return (x).
+}
+y=SUMADOBLE().

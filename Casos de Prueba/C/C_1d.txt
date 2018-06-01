@@ -1,0 +1,4 @@
+x,y,result:double.
+x=10,1e-31.
+y=,0.
+result=x/y.

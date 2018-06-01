@@ -1,0 +1,21 @@
+TOKENS RECONOCIDOS POR EL ANALIZADOR LEXICO:
+--------------------------------------------
+
+Lexema:             Uso:
+
+if                  if
+(                   (
+2                   cte
+>                   >
+1                   cte
+)                   )
+then                then
+begin               begin
+out                 out
+(                   (
+si, 2 es mayor que 1cadMulti
+)                   )
+.                   .
+end                 end
+.                   .
+endif               endif

@@ -1,0 +1,19 @@
+
+suma,x:uinteger.
+suma=3.
+
+suma2,y:double.
+double FUNCTION SUMA2
+{
+	x:double.
+	return(3,3).
+}
+uinteger FUNCTION SUMA 
+{
+	x:uinteger.
+	return (1).
+}
+
+
+x=SUMA().
+y=SUMA2().

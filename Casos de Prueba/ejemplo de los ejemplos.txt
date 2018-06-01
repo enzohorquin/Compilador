@@ -1,0 +1,74 @@
+x:uinteger.
+x=2.
+y,z:double.
+y=1,1.
+z=2,2.
+
+SWITCH(y){
+CASE 1,1: 
+	BEGIN 
+		OUT("ENTRO CASE 1,1"). 
+		SWITCH(x){
+			CASE 1: BEGIN OUT("ENTRO CASE 1"). END..
+			CASE 2: BEGIN 
+						OUT ("CASE 2 CASE 2").
+						y=2,0.
+						if (y==1,1) then			
+							begin 
+								OUT("ENTRO CASE 2"). 
+							end.
+						else
+							begin
+								out("hollaaa").
+								SWITCH(z){
+									CASE 0,2: BEGIN OUT("inCOORRECTO"). END..
+									CASE 2,2: 
+											BEGIN 
+												OUT("COORRECTO"). 
+												a,b,c: uinteger.
+												a=1.b=2.c=3.
+												if (a==0) then
+												begin
+													OUT("MAL").
+												end.
+												else
+												begin
+													if (b==1) then
+													begin
+														OUT("MAL 2").
+													end.
+													else
+													begin
+														if (c==2) then
+														begin
+															OUT("MAL 3").
+														end.
+														else
+														begin
+															if (c==3) then
+															begin
+																OUT("CORRECTO DE LOS CORRECTOS").
+															end.
+															endif
+														end.
+														endif
+													end.
+													endif
+												end.
+												endif
+											END..
+								}.
+							end.
+						endif
+					END..
+		}.
+	END..
+CASE 2,1: 
+	BEGIN 
+		OUT("ENTRO CASE 2,1"). 
+		SWITCH(x){
+			CASE 1: BEGIN OUT("ENTRO CASE 1"). END..
+			CASE 2: BEGIN OUT("ENTRO CASE 2"). END..
+		}.
+	END..
+}.

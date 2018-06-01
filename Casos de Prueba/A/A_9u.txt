@@ -1,0 +1,10 @@
+result:uinteger.
+result2:uinteger.
+uinteger FUNCTION SUMA 
+{	x:uinteger.
+	x=3.
+	
+	return (x).
+}
+
+result = SUMA.

@@ -1,0 +1,31 @@
+TABLA DE SIMBOLOS:
+------------------
+
+Lexema:                               Tipo:                                 Uso:
+
+@out8                                 string                                 out
+@out7                                 string                                 out
+@out6                                 string                                 out
+@out5                                 string                                 out
+@out4                                 string                                 out
+@out3                                 string                                 out
+@out2                                 string                                 out
+entro case 1,1                        string                            cadMulti
+@out1                                 string                                 out
+entro case 3,1                        string                            cadMulti
+2.1                                   double                                 cte
+entro case 4                          string                            cadMulti
+entro case 3                          string                            cadMulti
+4.1                                   double                                 cte
+entro case 2                          string                            cadMulti
+entro case 1                          string                            cadMulti
+x@main                                uinteger                          variable
+y@main                                double                            variable
+1.1                                   double                                 cte
+entro case 2,1                        string                            cadMulti
+entro case 4,1                        string                            cadMulti
+3.1                                   double                                 cte
+4                                     uinteger                               cte
+3                                     uinteger                               cte
+2                                     uinteger                               cte
+1                                     uinteger                               cte

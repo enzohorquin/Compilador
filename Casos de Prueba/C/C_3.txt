@@ -1,0 +1,3 @@
+z:uinteger.
+z=65535.
+z=z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z*z.

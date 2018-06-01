@@ -1,0 +1,51 @@
+TABLA DE SIMBOLOS:
+------------------
+
+Lexema:                               Tipo:                                 Uso:
+
+y@main                                double                            variable
+entro case 1,1                        string                            cadMulti
+@aux5                                 uinteger                          auxiliar
+@aux4                                 uinteger                          auxiliar
+@out9                                 string                                 out
+@aux3                                 uinteger                          auxiliar
+@out8                                 string                                 out
+@aux2                                 uinteger                          auxiliar
+@out7                                 string                                 out
+@aux1                                 double                            auxiliar
+@out6                                 string                                 out
+correcto de los correctos             string                            cadMulti
+@out5                                 string                                 out
+@out4                                 string                                 out
+@out3                                 string                                 out
+@out2                                 string                                 out
+@out1                                 string                                 out
+b@main                                uinteger                          variable
+hollaaa                               string                            cadMulti
+3                                     uinteger                               cte
+incoorrecto                           string                            cadMulti
+2                                     uinteger                               cte
+1                                     uinteger                               cte
+0                                     uinteger                               cte
+x@main                                uinteger                          variable
+mal 3                                 string                            cadMulti
+mal 2                                 string                            cadMulti
+z@main                                double                            variable
+case 2 case 2                         string                            cadMulti
+mal                                   string                            cadMulti
+a@main                                uinteger                          variable
+c@main                                uinteger                          variable
+2.2                                   double                                 cte
+2.1                                   double                                 cte
+@out14                                string                                 out
+2.0                                   double                                 cte
+@out13                                string                                 out
+@out12                                string                                 out
+@out11                                string                                 out
+@out10                                string                                 out
+coorrecto                             string                            cadMulti
+1.1                                   double                                 cte
+entro case 2,1                        string                            cadMulti
+0.2                                   double                                 cte
+entro case 2                          string                            cadMulti
+entro case 1                          string                            cadMulti

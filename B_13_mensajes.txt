@@ -1,0 +1,32 @@
+REGLAS:
+------------------------------
+
+Linea 1: sentencia Declarativa.
+Linea 2: sentencia Declarativa.
+Linea 5: sentencia Declarativa.
+Linea 6: sentencia Declarativa.
+Linea 8: Funcion.
+Linea 11: Asignación.
+Linea 15: sentencia Declarativa.
+Linea 18: Funcion.
+Linea 20: Asignación.
+Linea 24: sentencia OUT
+Linea 28: sentencia OUT
+Linea 30: sentencia IF.
+Linea 32: Programa leido correctamente.
+
+ERRORES DEL ANALIZADOR LEXICO:
+------------------------------
+
+No se encontraron errores lexicos.
+
+ERRORES SINTACTICOS:
+--------------------
+
+No se detectaron errores sintacticos.
+
+ERRORES SEMANTICOS:
+--------------------
+
+No se detectaron errores semanticos.
+

@@ -1,0 +1,23 @@
+x,y:double.
+x=2,0.
+double MOVE FUNCTION SUMA  [ FUNCION CORRECTA]
+{
+  x,fc,fd:double.
+  x=3,0.
+  RETURN (1,0+4,0*x). 
+}
+
+
+y=SUMA().
+
+
+if(y==13,0)THEN
+BEGIN
+OUT("CORRECTO PERRO").
+OUT("HOLA").
+END.
+ELSE
+BEGIN
+OUT("NO TENDRIA Q ENTRAR").
+END.
+ENDIF

@@ -1,0 +1,10 @@
+
+[TIENE QUE TIRAR EL CODIGO TA MAL]
+x,y,w,i:uinteger.
+
+x=2.
+y=3.
+w=3,4.
+i=3,3.
+t=4,4.
+z=4.[z no se encuentra declarada]

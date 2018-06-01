@@ -1,0 +1,62 @@
+TABLA DE SIMBOLOS:
+------------------
+
+Lexema:                               Tipo:                                 Uso:
+
+entro case 1 bloque else              string                            cadMulti
+y@main                                double                            variable
+paso decl                             string                            cadMulti
+@aux4                                 double                            auxiliar
+@out9                                 string                                 out
+entro case 1,1 bloque then            string                            cadMulti
+paso div double                       string                            cadMulti
+@out8                                 string                                 out
+@aux3                                 uinteger                          auxiliar
+@out7                                 string                                 out
+@aux2                                 double                            auxiliar
+@out6                                 string                                 out
+@aux1                                 uinteger                          auxiliar
+@out5                                 string                                 out
+@out4                                 string                                 out
+entro case 1 bloque then              string                            cadMulti
+@out3                                 string                                 out
+@out2                                 string                                 out
+entro case 4 bloque else              string                            cadMulti
+@out1                                 string                                 out
+entro case 3,1 bloque else            string                            cadMulti
+paso div entera                       string                            cadMulti
+entro case 4 bloque then              string                            cadMulti
+entro case 3,1 bloque then            string                            cadMulti
+@out20                                string                                 out
+8                                     uinteger                               cte
+entro case 3 bloque else              string                            cadMulti
+4                                     uinteger                               cte
+4.1                                   double                                 cte
+3                                     uinteger                               cte
+2                                     uinteger                               cte
+1                                     uinteger                               cte
+x@main                                uinteger                          variable
+entro case 3 bloque then              string                            cadMulti
+3.1                                   double                                 cte
+entro case 2,1 bloque else            string                            cadMulti
+@out19                                string                                 out
+@out18                                string                                 out
+@out17                                string                                 out
+@out16                                string                                 out
+entro case 2,1 bloque then            string                            cadMulti
+2.2                                   double                                 cte
+@out15                                string                                 out
+2.1                                   double                                 cte
+@out14                                string                                 out
+2.0                                   double                                 cte
+@out13                                string                                 out
+@out12                                string                                 out
+entro case 2 bloque else              string                            cadMulti
+@out11                                string                                 out
+@out10                                string                                 out
+entro case 4,1 bloque else            string                            cadMulti
+1.1                                   double                                 cte
+entro case 2 bloque then              string                            cadMulti
+entro case 4,1 bloque then            string                            cadMulti
+entro case 1,1 bloque else            string                            cadMulti
+paso decl 2                           string                            cadMulti

@@ -1,0 +1,6 @@
+[MAL ASIGNACION DE VARIABLE]
+x:uinteger.
+y:double.
+
+x=3,4.
+y=3.

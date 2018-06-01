@@ -1,0 +1,12 @@
+
+result:double.
+result2:double.
+double FUNCTION SUMA 
+{	x:double.
+	x=3,3.
+	
+	return (x).
+}
+
+result = SUMA.
+

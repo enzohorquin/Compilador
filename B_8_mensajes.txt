@@ -1,0 +1,50 @@
+REGLAS:
+------------------------------
+
+Linea 1: sentencia Declarativa.
+Linea 2: sentencia OUT
+Linea 3: Asignación.
+Linea 4: sentencia OUT
+Linea 5: sentencia Declarativa.
+Linea 6: sentencia OUT
+Linea 7: Asignación.
+Linea 8: sentencia OUT
+Linea 13: sentencia OUT
+Linea 14: sentencia OUT
+Linea 15: sentencia OUT
+Linea 16: sentencia OUT
+Linea 17: sentencia SWITCH CASE
+Linea 22: sentencia OUT
+Linea 23: sentencia OUT
+Linea 24: sentencia OUT
+Linea 25: sentencia OUT
+Linea 26: sentencia SWITCH CASE
+Linea 28: sentencia IF.
+Linea 35: sentencia OUT
+Linea 36: sentencia OUT
+Linea 37: sentencia OUT
+Linea 38: sentencia OUT
+Linea 39: sentencia SWITCH CASE
+Linea 44: sentencia OUT
+Linea 45: sentencia OUT
+Linea 46: sentencia OUT
+Linea 47: sentencia OUT
+Linea 48: sentencia SWITCH CASE
+Linea 50: sentencia IF.
+Linea 52: Programa leido correctamente.
+
+ERRORES DEL ANALIZADOR LEXICO:
+------------------------------
+
+No se encontraron errores lexicos.
+
+ERRORES SINTACTICOS:
+--------------------
+
+No se detectaron errores sintacticos.
+
+ERRORES SEMANTICOS:
+--------------------
+
+No se detectaron errores semanticos.
+

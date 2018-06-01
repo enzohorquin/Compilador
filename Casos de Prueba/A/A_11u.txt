@@ -1,0 +1,22 @@
+result:uinteger.
+x:uinteger.
+uinteger MOVE FUNCTION SUMA 
+{	
+	x=3.
+	
+	return (x).
+}
+
+result=SUMA().
+
+result2,z:double.
+z=1,1.
+double MOVE FUNCTION SUMA2
+{
+	
+	z=2,2.
+	return (z).
+
+}
+
+result2 = SUMA2().

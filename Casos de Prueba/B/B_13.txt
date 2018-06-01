@@ -1,0 +1,30 @@
+x,y:uinteger.
+z:double.
+uinteger FUNCTION SUMA  [ FUNCION CORRECTA]
+{
+  fc,fd:uinteger.
+  x:uinteger.
+  RETURN (4+5*1). 
+}
+
+
+y=SUMA().
+
+double FUNCTION SUMADOS  [ FUNCION CORRECTA]
+{
+  fc,fd:double.
+  
+  RETURN (1,1+3,3). 
+}
+
+z=SUMADOS().
+
+if (y==9) THEN
+BEGIN
+	OUT("y es igual a 9").
+END.
+ELSE
+BEGIN
+OUT("y no es igual a 9").
+END.
+ENDIF

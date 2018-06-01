@@ -1,0 +1,1925 @@
+   0  $accept : programa $end
+
+   1  programa : contenidoPrograma
+
+   2  elementoPrograma : sentencia
+   3                   | funcion
+
+   4  contenidoPrograma : elementoPrograma
+   5                    | contenidoPrograma elementoPrograma
+
+   6  tipo : UINT
+   7       | DOUBLE
+
+   8  headerFUNCTION : tipo FUNCTION ID
+   9                 | tipo MOVE FUNCTION ID
+  10                 | error FUNCTION ID
+  11                 | tipo MOVE error ID
+
+  12  $$1 :
+
+  13  funcion : headerFUNCTION $$1 '{' conjuntoSentencias RETURN '(' expresion ')' '.' '}'
+
+  14  invokeFUNCTION : ID '(' ')'
+  15                 | ID '(' error
+  16                 | error '(' ')'
+
+  17  sentenciaDeclarativa : declaracionVariables
+
+  18  declaracionVariables : listaVariables ':' tipo '.'
+  19                       | listaVariables ':' error '.'
+
+  20  listaVariables : ID
+  21                 | listaVariables ',' ID
+
+  22  sentenciaEjecutable : sentenciaIF
+  23                      | sentenciaSalida
+  24                      | sentenciaSWITCH
+  25                      | asignacion '.'
+
+  26  sentencia : sentenciaDeclarativa
+  27            | sentenciaEjecutable
+
+  28  conjuntoSentencias : sentencia
+  29                     | conjuntoSentencias sentencia
+
+  30  conjuntoSentencia : sentencia
+  31                    | conjuntoSentencia sentencia
+  32                    | error
+
+  33  bloqueSentenciaThen : BEGIN conjuntoSentencia END '.'
+  34                      | error conjuntoSentencia END '.'
+  35                      | BEGIN conjuntoSentencia error '.'
+
+  36  bloqueSentenciaElse : BEGIN conjuntoSentencia END '.'
+  37                      | error conjuntoSentencia END '.'
+  38                      | BEGIN conjuntoSentencia error '.'
+
+  39  bloqueSentencia : BEGIN conjuntoSentencia END '.'
+  40                  | error conjuntoSentencia END '.'
+  41                  | BEGIN conjuntoSentencia error '.'
+
+  42  comparador : COMP_IGUAL
+  43             | COMP_MAYOR
+  44             | COMP_MENOR
+  45             | COMP_MAYOR_IGUAL
+  46             | COMP_MENOR_IGUAL
+  47             | COMP_DIFERENTE
+
+  48  condicion : expresion comparador expresion
+  49            | expresion comparador error
+  50            | expresion error expresion
+  51            | error comparador expresion
+
+  52  sentenciaIF : IF '(' condicion ')' THEN bloqueSentenciaThen ELSE bloqueSentenciaElse ENDIF
+  53              | IF '(' condicion ')' THEN bloqueSentenciaThen ENDIF
+  54              | IF '(' condicion ')' error bloqueSentenciaThen ENDIF
+  55              | IF '(' condicion ')' THEN bloqueSentenciaThen error
+
+  56  $$2 :
+
+  57  lineaCASE : CASE cte ':' $$2 bloqueSentencia '.'
+  58            | error cte ':' bloqueSentencia '.'
+  59            | CASE error ':' bloqueSentencia '.'
+  60            | CASE cte error bloqueSentencia '.'
+
+  61  bloqueCASE : lineaCASE
+  62             | bloqueCASE lineaCASE
+
+  63  cuerpoSwitch : '{' bloqueCASE '}'
+  64               | '{' bloqueCASE error
+  65               | error bloqueCASE '}'
+
+  66  encabezadoSWITCH : SWITCH '(' ID ')'
+  67                   | SWITCH error ID ')'
+  68                   | SWITCH '(' ID error
+  69                   | SWITCH '(' error ')'
+
+  70  sentenciaSWITCH : encabezadoSWITCH cuerpoSwitch '.'
+  71                  | encabezadoSWITCH cuerpoSwitch error
+
+  72  sentenciaSalida : OUT '(' CADMULTI ')' '.'
+
+  73  factor : ID
+  74         | cte
+  75         | invokeFUNCTION
+
+  76  cte : CTE
+  77      | '-' CTE
+
+  78  termino : termino '*' factor
+  79          | termino '/' factor
+  80          | factor
+
+  81  expresion : expresion '+' termino
+  82            | expresion '-' termino
+  83            | termino
+
+  84  asignacion : ID '=' expresion
+  85             | ID error expresion
+  86             | ID '=' error
+
+state 0
+	$accept : . programa $end  (0)
+
+	error  shift 1
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	UINT  shift 5
+	DOUBLE  shift 6
+	ID  shift 7
+	.  error
+
+	programa  goto 8
+	contenidoPrograma  goto 9
+	elementoPrograma  goto 10
+	sentencia  goto 11
+	funcion  goto 12
+	tipo  goto 13
+	headerFUNCTION  goto 14
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 1
+	headerFUNCTION : error . FUNCTION ID  (10)
+
+	FUNCTION  shift 24
+	.  error
+
+
+state 2
+	sentenciaIF : IF . '(' condicion ')' THEN bloqueSentenciaThen ELSE bloqueSentenciaElse ENDIF  (52)
+	sentenciaIF : IF . '(' condicion ')' THEN bloqueSentenciaThen ENDIF  (53)
+	sentenciaIF : IF . '(' condicion ')' error bloqueSentenciaThen ENDIF  (54)
+	sentenciaIF : IF . '(' condicion ')' THEN bloqueSentenciaThen error  (55)
+
+	'('  shift 25
+	.  error
+
+
+state 3
+	sentenciaSalida : OUT . '(' CADMULTI ')' '.'  (72)
+
+	'('  shift 26
+	.  error
+
+
+state 4
+	encabezadoSWITCH : SWITCH . '(' ID ')'  (66)
+	encabezadoSWITCH : SWITCH . error ID ')'  (67)
+	encabezadoSWITCH : SWITCH . '(' ID error  (68)
+	encabezadoSWITCH : SWITCH . '(' error ')'  (69)
+
+	error  shift 27
+	'('  shift 28
+	.  error
+
+
+state 5
+	tipo : UINT .  (6)
+
+	.  reduce 6
+
+
+state 6
+	tipo : DOUBLE .  (7)
+
+	.  reduce 7
+
+
+state 7
+	listaVariables : ID .  (20)
+	asignacion : ID . '=' expresion  (84)
+	asignacion : ID . error expresion  (85)
+	asignacion : ID . '=' error  (86)
+
+	error  shift 29
+	'='  shift 30
+	':'  reduce 20
+	','  reduce 20
+
+
+state 8
+	$accept : programa . $end  (0)
+
+	$end  accept
+
+
+state 9
+	programa : contenidoPrograma .  (1)
+	contenidoPrograma : contenidoPrograma . elementoPrograma  (5)
+
+	error  shift 1
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	UINT  shift 5
+	DOUBLE  shift 6
+	ID  shift 7
+	$end  reduce 1
+
+	elementoPrograma  goto 31
+	sentencia  goto 11
+	funcion  goto 12
+	tipo  goto 13
+	headerFUNCTION  goto 14
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 10
+	contenidoPrograma : elementoPrograma .  (4)
+
+	.  reduce 4
+
+
+state 11
+	elementoPrograma : sentencia .  (2)
+
+	.  reduce 2
+
+
+state 12
+	elementoPrograma : funcion .  (3)
+
+	.  reduce 3
+
+
+state 13
+	headerFUNCTION : tipo . FUNCTION ID  (8)
+	headerFUNCTION : tipo . MOVE FUNCTION ID  (9)
+	headerFUNCTION : tipo . MOVE error ID  (11)
+
+	FUNCTION  shift 32
+	MOVE  shift 33
+	.  error
+
+
+state 14
+	funcion : headerFUNCTION . $$1 '{' conjuntoSentencias RETURN '(' expresion ')' '.' '}'  (13)
+	$$1 : .  (12)
+
+	.  reduce 12
+
+	$$1  goto 34
+
+
+state 15
+	sentencia : sentenciaDeclarativa .  (26)
+
+	.  reduce 26
+
+
+state 16
+	sentenciaDeclarativa : declaracionVariables .  (17)
+
+	.  reduce 17
+
+
+state 17
+	declaracionVariables : listaVariables . ':' tipo '.'  (18)
+	declaracionVariables : listaVariables . ':' error '.'  (19)
+	listaVariables : listaVariables . ',' ID  (21)
+
+	':'  shift 35
+	','  shift 36
+	.  error
+
+
+state 18
+	sentencia : sentenciaEjecutable .  (27)
+
+	.  reduce 27
+
+
+state 19
+	sentenciaEjecutable : sentenciaIF .  (22)
+
+	.  reduce 22
+
+
+state 20
+	sentenciaEjecutable : sentenciaSalida .  (23)
+
+	.  reduce 23
+
+
+state 21
+	sentenciaEjecutable : sentenciaSWITCH .  (24)
+
+	.  reduce 24
+
+
+state 22
+	sentenciaEjecutable : asignacion . '.'  (25)
+
+	'.'  shift 37
+	.  error
+
+
+state 23
+	sentenciaSWITCH : encabezadoSWITCH . cuerpoSwitch '.'  (70)
+	sentenciaSWITCH : encabezadoSWITCH . cuerpoSwitch error  (71)
+
+	error  shift 38
+	'{'  shift 39
+	.  error
+
+	cuerpoSwitch  goto 40
+
+
+state 24
+	headerFUNCTION : error FUNCTION . ID  (10)
+
+	ID  shift 41
+	.  error
+
+
+state 25
+	sentenciaIF : IF '(' . condicion ')' THEN bloqueSentenciaThen ELSE bloqueSentenciaElse ENDIF  (52)
+	sentenciaIF : IF '(' . condicion ')' THEN bloqueSentenciaThen ENDIF  (53)
+	sentenciaIF : IF '(' . condicion ')' error bloqueSentenciaThen ENDIF  (54)
+	sentenciaIF : IF '(' . condicion ')' THEN bloqueSentenciaThen error  (55)
+
+	error  shift 42
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	expresion  goto 46
+	invokeFUNCTION  goto 47
+	condicion  goto 48
+	cte  goto 49
+	factor  goto 50
+	termino  goto 51
+
+
+state 26
+	sentenciaSalida : OUT '(' . CADMULTI ')' '.'  (72)
+
+	CADMULTI  shift 52
+	.  error
+
+
+state 27
+	encabezadoSWITCH : SWITCH error . ID ')'  (67)
+
+	ID  shift 53
+	.  error
+
+
+state 28
+	encabezadoSWITCH : SWITCH '(' . ID ')'  (66)
+	encabezadoSWITCH : SWITCH '(' . ID error  (68)
+	encabezadoSWITCH : SWITCH '(' . error ')'  (69)
+
+	error  shift 54
+	ID  shift 55
+	.  error
+
+
+state 29
+	asignacion : ID error . expresion  (85)
+
+	error  shift 56
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	expresion  goto 57
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 50
+	termino  goto 51
+
+
+state 30
+	asignacion : ID '=' . expresion  (84)
+	asignacion : ID '=' . error  (86)
+
+	error  shift 58
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	expresion  goto 59
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 50
+	termino  goto 51
+
+
+state 31
+	contenidoPrograma : contenidoPrograma elementoPrograma .  (5)
+
+	.  reduce 5
+
+
+state 32
+	headerFUNCTION : tipo FUNCTION . ID  (8)
+
+	ID  shift 60
+	.  error
+
+
+state 33
+	headerFUNCTION : tipo MOVE . FUNCTION ID  (9)
+	headerFUNCTION : tipo MOVE . error ID  (11)
+
+	error  shift 61
+	FUNCTION  shift 62
+	.  error
+
+
+state 34
+	funcion : headerFUNCTION $$1 . '{' conjuntoSentencias RETURN '(' expresion ')' '.' '}'  (13)
+
+	'{'  shift 63
+	.  error
+
+
+state 35
+	declaracionVariables : listaVariables ':' . tipo '.'  (18)
+	declaracionVariables : listaVariables ':' . error '.'  (19)
+
+	error  shift 64
+	UINT  shift 5
+	DOUBLE  shift 6
+	.  error
+
+	tipo  goto 65
+
+
+state 36
+	listaVariables : listaVariables ',' . ID  (21)
+
+	ID  shift 66
+	.  error
+
+
+state 37
+	sentenciaEjecutable : asignacion '.' .  (25)
+
+	.  reduce 25
+
+
+state 38
+	cuerpoSwitch : error . bloqueCASE '}'  (65)
+
+	error  shift 67
+	CASE  shift 68
+	.  error
+
+	lineaCASE  goto 69
+	bloqueCASE  goto 70
+
+
+state 39
+	cuerpoSwitch : '{' . bloqueCASE '}'  (63)
+	cuerpoSwitch : '{' . bloqueCASE error  (64)
+
+	error  shift 67
+	CASE  shift 68
+	.  error
+
+	lineaCASE  goto 69
+	bloqueCASE  goto 71
+
+
+state 40
+	sentenciaSWITCH : encabezadoSWITCH cuerpoSwitch . '.'  (70)
+	sentenciaSWITCH : encabezadoSWITCH cuerpoSwitch . error  (71)
+
+	error  shift 72
+	'.'  shift 73
+	.  error
+
+
+state 41
+	headerFUNCTION : error FUNCTION ID .  (10)
+
+	.  reduce 10
+
+
+state 42
+	invokeFUNCTION : error . '(' ')'  (16)
+	condicion : error . comparador expresion  (51)
+
+	COMP_DIFERENTE  shift 74
+	COMP_MAYOR_IGUAL  shift 75
+	COMP_MENOR_IGUAL  shift 76
+	COMP_IGUAL  shift 77
+	COMP_MAYOR  shift 78
+	COMP_MENOR  shift 79
+	'('  shift 80
+	.  error
+
+	comparador  goto 81
+
+
+state 43
+	cte : CTE .  (76)
+
+	.  reduce 76
+
+
+state 44
+	invokeFUNCTION : ID . '(' ')'  (14)
+	invokeFUNCTION : ID . '(' error  (15)
+	factor : ID .  (73)
+
+	'('  shift 82
+	error  reduce 73
+	COMP_DIFERENTE  reduce 73
+	COMP_MAYOR_IGUAL  reduce 73
+	COMP_MENOR_IGUAL  reduce 73
+	COMP_IGUAL  reduce 73
+	COMP_MAYOR  reduce 73
+	COMP_MENOR  reduce 73
+	'+'  reduce 73
+	'-'  reduce 73
+	'*'  reduce 73
+	'/'  reduce 73
+	')'  reduce 73
+	'.'  reduce 73
+
+
+state 45
+	cte : '-' . CTE  (77)
+
+	CTE  shift 83
+	.  error
+
+
+state 46
+	condicion : expresion . comparador expresion  (48)
+	condicion : expresion . comparador error  (49)
+	condicion : expresion . error expresion  (50)
+	expresion : expresion . '+' termino  (81)
+	expresion : expresion . '-' termino  (82)
+
+	error  shift 84
+	COMP_DIFERENTE  shift 74
+	COMP_MAYOR_IGUAL  shift 75
+	COMP_MENOR_IGUAL  shift 76
+	COMP_IGUAL  shift 77
+	COMP_MAYOR  shift 78
+	COMP_MENOR  shift 79
+	'+'  shift 85
+	'-'  shift 86
+	.  error
+
+	comparador  goto 87
+
+
+state 47
+	factor : invokeFUNCTION .  (75)
+
+	.  reduce 75
+
+
+state 48
+	sentenciaIF : IF '(' condicion . ')' THEN bloqueSentenciaThen ELSE bloqueSentenciaElse ENDIF  (52)
+	sentenciaIF : IF '(' condicion . ')' THEN bloqueSentenciaThen ENDIF  (53)
+	sentenciaIF : IF '(' condicion . ')' error bloqueSentenciaThen ENDIF  (54)
+	sentenciaIF : IF '(' condicion . ')' THEN bloqueSentenciaThen error  (55)
+
+	')'  shift 88
+	.  error
+
+
+state 49
+	factor : cte .  (74)
+
+	.  reduce 74
+
+
+state 50
+	termino : factor .  (80)
+
+	.  reduce 80
+
+
+state 51
+	termino : termino . '*' factor  (78)
+	termino : termino . '/' factor  (79)
+	expresion : termino .  (83)
+
+	'*'  shift 89
+	'/'  shift 90
+	error  reduce 83
+	COMP_DIFERENTE  reduce 83
+	COMP_MAYOR_IGUAL  reduce 83
+	COMP_MENOR_IGUAL  reduce 83
+	COMP_IGUAL  reduce 83
+	COMP_MAYOR  reduce 83
+	COMP_MENOR  reduce 83
+	'+'  reduce 83
+	'-'  reduce 83
+	')'  reduce 83
+	'.'  reduce 83
+
+
+state 52
+	sentenciaSalida : OUT '(' CADMULTI . ')' '.'  (72)
+
+	')'  shift 91
+	.  error
+
+
+state 53
+	encabezadoSWITCH : SWITCH error ID . ')'  (67)
+
+	')'  shift 92
+	.  error
+
+
+state 54
+	encabezadoSWITCH : SWITCH '(' error . ')'  (69)
+
+	')'  shift 93
+	.  error
+
+
+state 55
+	encabezadoSWITCH : SWITCH '(' ID . ')'  (66)
+	encabezadoSWITCH : SWITCH '(' ID . error  (68)
+
+	error  shift 94
+	')'  shift 95
+	.  error
+
+
+state 56
+	invokeFUNCTION : error . '(' ')'  (16)
+
+	'('  shift 80
+	.  error
+
+
+state 57
+	expresion : expresion . '+' termino  (81)
+	expresion : expresion . '-' termino  (82)
+	asignacion : ID error expresion .  (85)
+
+	'+'  shift 85
+	'-'  shift 86
+	'.'  reduce 85
+
+
+state 58
+	invokeFUNCTION : error . '(' ')'  (16)
+	asignacion : ID '=' error .  (86)
+
+	'('  shift 80
+	'.'  reduce 86
+
+
+state 59
+	expresion : expresion . '+' termino  (81)
+	expresion : expresion . '-' termino  (82)
+	asignacion : ID '=' expresion .  (84)
+
+	'+'  shift 85
+	'-'  shift 86
+	'.'  reduce 84
+
+
+state 60
+	headerFUNCTION : tipo FUNCTION ID .  (8)
+
+	.  reduce 8
+
+
+state 61
+	headerFUNCTION : tipo MOVE error . ID  (11)
+
+	ID  shift 96
+	.  error
+
+
+state 62
+	headerFUNCTION : tipo MOVE FUNCTION . ID  (9)
+
+	ID  shift 97
+	.  error
+
+
+state 63
+	funcion : headerFUNCTION $$1 '{' . conjuntoSentencias RETURN '(' expresion ')' '.' '}'  (13)
+
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 98
+	conjuntoSentencias  goto 99
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 64
+	declaracionVariables : listaVariables ':' error . '.'  (19)
+
+	'.'  shift 100
+	.  error
+
+
+state 65
+	declaracionVariables : listaVariables ':' tipo . '.'  (18)
+
+	'.'  shift 101
+	.  error
+
+
+state 66
+	listaVariables : listaVariables ',' ID .  (21)
+
+	.  reduce 21
+
+
+state 67
+	lineaCASE : error . cte ':' bloqueSentencia '.'  (58)
+
+	CTE  shift 43
+	'-'  shift 45
+	.  error
+
+	cte  goto 102
+
+
+state 68
+	lineaCASE : CASE . cte ':' $$2 bloqueSentencia '.'  (57)
+	lineaCASE : CASE . error ':' bloqueSentencia '.'  (59)
+	lineaCASE : CASE . cte error bloqueSentencia '.'  (60)
+
+	error  shift 103
+	CTE  shift 43
+	'-'  shift 45
+	.  error
+
+	cte  goto 104
+
+
+state 69
+	bloqueCASE : lineaCASE .  (61)
+
+	.  reduce 61
+
+
+state 70
+	bloqueCASE : bloqueCASE . lineaCASE  (62)
+	cuerpoSwitch : error bloqueCASE . '}'  (65)
+
+	error  shift 67
+	CASE  shift 68
+	'}'  shift 105
+	.  error
+
+	lineaCASE  goto 106
+
+
+state 71
+	bloqueCASE : bloqueCASE . lineaCASE  (62)
+	cuerpoSwitch : '{' bloqueCASE . '}'  (63)
+	cuerpoSwitch : '{' bloqueCASE . error  (64)
+
+	error  shift 107
+	CASE  shift 68
+	'}'  shift 108
+	.  error
+
+	lineaCASE  goto 106
+
+
+state 72
+	sentenciaSWITCH : encabezadoSWITCH cuerpoSwitch error .  (71)
+
+	.  reduce 71
+
+
+state 73
+	sentenciaSWITCH : encabezadoSWITCH cuerpoSwitch '.' .  (70)
+
+	.  reduce 70
+
+
+state 74
+	comparador : COMP_DIFERENTE .  (47)
+
+	.  reduce 47
+
+
+state 75
+	comparador : COMP_MAYOR_IGUAL .  (45)
+
+	.  reduce 45
+
+
+state 76
+	comparador : COMP_MENOR_IGUAL .  (46)
+
+	.  reduce 46
+
+
+state 77
+	comparador : COMP_IGUAL .  (42)
+
+	.  reduce 42
+
+
+state 78
+	comparador : COMP_MAYOR .  (43)
+
+	.  reduce 43
+
+
+state 79
+	comparador : COMP_MENOR .  (44)
+
+	.  reduce 44
+
+
+state 80
+	invokeFUNCTION : error '(' . ')'  (16)
+
+	')'  shift 109
+	.  error
+
+
+state 81
+	condicion : error comparador . expresion  (51)
+
+	error  shift 56
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	expresion  goto 110
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 50
+	termino  goto 51
+
+
+state 82
+	invokeFUNCTION : ID '(' . ')'  (14)
+	invokeFUNCTION : ID '(' . error  (15)
+
+	error  shift 111
+	')'  shift 112
+	.  error
+
+
+state 83
+	cte : '-' CTE .  (77)
+
+	.  reduce 77
+
+
+state 84
+	condicion : expresion error . expresion  (50)
+
+	error  shift 56
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	expresion  goto 113
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 50
+	termino  goto 51
+
+
+state 85
+	expresion : expresion '+' . termino  (81)
+
+	error  shift 56
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 50
+	termino  goto 114
+
+
+state 86
+	expresion : expresion '-' . termino  (82)
+
+	error  shift 56
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 50
+	termino  goto 115
+
+
+state 87
+	condicion : expresion comparador . expresion  (48)
+	condicion : expresion comparador . error  (49)
+
+	error  shift 116
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	expresion  goto 117
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 50
+	termino  goto 51
+
+
+state 88
+	sentenciaIF : IF '(' condicion ')' . THEN bloqueSentenciaThen ELSE bloqueSentenciaElse ENDIF  (52)
+	sentenciaIF : IF '(' condicion ')' . THEN bloqueSentenciaThen ENDIF  (53)
+	sentenciaIF : IF '(' condicion ')' . error bloqueSentenciaThen ENDIF  (54)
+	sentenciaIF : IF '(' condicion ')' . THEN bloqueSentenciaThen error  (55)
+
+	error  shift 118
+	THEN  shift 119
+	.  error
+
+
+state 89
+	termino : termino '*' . factor  (78)
+
+	error  shift 56
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 120
+
+
+state 90
+	termino : termino '/' . factor  (79)
+
+	error  shift 56
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 121
+
+
+state 91
+	sentenciaSalida : OUT '(' CADMULTI ')' . '.'  (72)
+
+	'.'  shift 122
+	.  error
+
+
+state 92
+	encabezadoSWITCH : SWITCH error ID ')' .  (67)
+
+	.  reduce 67
+
+
+state 93
+	encabezadoSWITCH : SWITCH '(' error ')' .  (69)
+
+	.  reduce 69
+
+
+state 94
+	encabezadoSWITCH : SWITCH '(' ID error .  (68)
+
+	.  reduce 68
+
+
+state 95
+	encabezadoSWITCH : SWITCH '(' ID ')' .  (66)
+
+	.  reduce 66
+
+
+state 96
+	headerFUNCTION : tipo MOVE error ID .  (11)
+
+	.  reduce 11
+
+
+state 97
+	headerFUNCTION : tipo MOVE FUNCTION ID .  (9)
+
+	.  reduce 9
+
+
+state 98
+	conjuntoSentencias : sentencia .  (28)
+
+	.  reduce 28
+
+
+state 99
+	funcion : headerFUNCTION $$1 '{' conjuntoSentencias . RETURN '(' expresion ')' '.' '}'  (13)
+	conjuntoSentencias : conjuntoSentencias . sentencia  (29)
+
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	RETURN  shift 123
+	ID  shift 7
+	.  error
+
+	sentencia  goto 124
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 100
+	declaracionVariables : listaVariables ':' error '.' .  (19)
+
+	.  reduce 19
+
+
+state 101
+	declaracionVariables : listaVariables ':' tipo '.' .  (18)
+
+	.  reduce 18
+
+
+state 102
+	lineaCASE : error cte . ':' bloqueSentencia '.'  (58)
+
+	':'  shift 125
+	.  error
+
+
+state 103
+	lineaCASE : CASE error . ':' bloqueSentencia '.'  (59)
+
+	':'  shift 126
+	.  error
+
+
+state 104
+	lineaCASE : CASE cte . ':' $$2 bloqueSentencia '.'  (57)
+	lineaCASE : CASE cte . error bloqueSentencia '.'  (60)
+
+	error  shift 127
+	':'  shift 128
+	.  error
+
+
+state 105
+	cuerpoSwitch : error bloqueCASE '}' .  (65)
+
+	.  reduce 65
+
+
+state 106
+	bloqueCASE : bloqueCASE lineaCASE .  (62)
+
+	.  reduce 62
+
+
+state 107
+	lineaCASE : error . cte ':' bloqueSentencia '.'  (58)
+	cuerpoSwitch : '{' bloqueCASE error .  (64)
+
+	CTE  shift 43
+	'-'  shift 45
+	error  reduce 64
+	'.'  reduce 64
+
+	cte  goto 102
+
+
+state 108
+	cuerpoSwitch : '{' bloqueCASE '}' .  (63)
+
+	.  reduce 63
+
+
+state 109
+	invokeFUNCTION : error '(' ')' .  (16)
+
+	.  reduce 16
+
+
+state 110
+	condicion : error comparador expresion .  (51)
+	expresion : expresion . '+' termino  (81)
+	expresion : expresion . '-' termino  (82)
+
+	'+'  shift 85
+	'-'  shift 86
+	')'  reduce 51
+
+
+state 111
+	invokeFUNCTION : ID '(' error .  (15)
+
+	.  reduce 15
+
+
+state 112
+	invokeFUNCTION : ID '(' ')' .  (14)
+
+	.  reduce 14
+
+
+state 113
+	condicion : expresion error expresion .  (50)
+	expresion : expresion . '+' termino  (81)
+	expresion : expresion . '-' termino  (82)
+
+	'+'  shift 85
+	'-'  shift 86
+	')'  reduce 50
+
+
+state 114
+	termino : termino . '*' factor  (78)
+	termino : termino . '/' factor  (79)
+	expresion : expresion '+' termino .  (81)
+
+	'*'  shift 89
+	'/'  shift 90
+	error  reduce 81
+	COMP_DIFERENTE  reduce 81
+	COMP_MAYOR_IGUAL  reduce 81
+	COMP_MENOR_IGUAL  reduce 81
+	COMP_IGUAL  reduce 81
+	COMP_MAYOR  reduce 81
+	COMP_MENOR  reduce 81
+	'+'  reduce 81
+	'-'  reduce 81
+	')'  reduce 81
+	'.'  reduce 81
+
+
+state 115
+	termino : termino . '*' factor  (78)
+	termino : termino . '/' factor  (79)
+	expresion : expresion '-' termino .  (82)
+
+	'*'  shift 89
+	'/'  shift 90
+	error  reduce 82
+	COMP_DIFERENTE  reduce 82
+	COMP_MAYOR_IGUAL  reduce 82
+	COMP_MENOR_IGUAL  reduce 82
+	COMP_IGUAL  reduce 82
+	COMP_MAYOR  reduce 82
+	COMP_MENOR  reduce 82
+	'+'  reduce 82
+	'-'  reduce 82
+	')'  reduce 82
+	'.'  reduce 82
+
+
+state 116
+	invokeFUNCTION : error . '(' ')'  (16)
+	condicion : expresion comparador error .  (49)
+
+	'('  shift 80
+	')'  reduce 49
+
+
+state 117
+	condicion : expresion comparador expresion .  (48)
+	expresion : expresion . '+' termino  (81)
+	expresion : expresion . '-' termino  (82)
+
+	'+'  shift 85
+	'-'  shift 86
+	')'  reduce 48
+
+
+state 118
+	sentenciaIF : IF '(' condicion ')' error . bloqueSentenciaThen ENDIF  (54)
+
+	error  shift 129
+	BEGIN  shift 130
+	.  error
+
+	bloqueSentenciaThen  goto 131
+
+
+state 119
+	sentenciaIF : IF '(' condicion ')' THEN . bloqueSentenciaThen ELSE bloqueSentenciaElse ENDIF  (52)
+	sentenciaIF : IF '(' condicion ')' THEN . bloqueSentenciaThen ENDIF  (53)
+	sentenciaIF : IF '(' condicion ')' THEN . bloqueSentenciaThen error  (55)
+
+	error  shift 129
+	BEGIN  shift 130
+	.  error
+
+	bloqueSentenciaThen  goto 132
+
+
+state 120
+	termino : termino '*' factor .  (78)
+
+	.  reduce 78
+
+
+state 121
+	termino : termino '/' factor .  (79)
+
+	.  reduce 79
+
+
+state 122
+	sentenciaSalida : OUT '(' CADMULTI ')' '.' .  (72)
+
+	.  reduce 72
+
+
+state 123
+	funcion : headerFUNCTION $$1 '{' conjuntoSentencias RETURN . '(' expresion ')' '.' '}'  (13)
+
+	'('  shift 133
+	.  error
+
+
+state 124
+	conjuntoSentencias : conjuntoSentencias sentencia .  (29)
+
+	.  reduce 29
+
+
+state 125
+	lineaCASE : error cte ':' . bloqueSentencia '.'  (58)
+
+	error  shift 134
+	BEGIN  shift 135
+	.  error
+
+	bloqueSentencia  goto 136
+
+
+state 126
+	lineaCASE : CASE error ':' . bloqueSentencia '.'  (59)
+
+	error  shift 134
+	BEGIN  shift 135
+	.  error
+
+	bloqueSentencia  goto 137
+
+
+state 127
+	lineaCASE : CASE cte error . bloqueSentencia '.'  (60)
+
+	error  shift 134
+	BEGIN  shift 135
+	.  error
+
+	bloqueSentencia  goto 138
+
+
+state 128
+	lineaCASE : CASE cte ':' . $$2 bloqueSentencia '.'  (57)
+	$$2 : .  (56)
+
+	.  reduce 56
+
+	$$2  goto 139
+
+
+state 129
+	bloqueSentenciaThen : error . conjuntoSentencia END '.'  (34)
+
+	error  shift 140
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 141
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	conjuntoSentencia  goto 142
+	encabezadoSWITCH  goto 23
+
+
+state 130
+	bloqueSentenciaThen : BEGIN . conjuntoSentencia END '.'  (33)
+	bloqueSentenciaThen : BEGIN . conjuntoSentencia error '.'  (35)
+
+	error  shift 140
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 141
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	conjuntoSentencia  goto 143
+	encabezadoSWITCH  goto 23
+
+
+state 131
+	sentenciaIF : IF '(' condicion ')' error bloqueSentenciaThen . ENDIF  (54)
+
+	ENDIF  shift 144
+	.  error
+
+
+state 132
+	sentenciaIF : IF '(' condicion ')' THEN bloqueSentenciaThen . ELSE bloqueSentenciaElse ENDIF  (52)
+	sentenciaIF : IF '(' condicion ')' THEN bloqueSentenciaThen . ENDIF  (53)
+	sentenciaIF : IF '(' condicion ')' THEN bloqueSentenciaThen . error  (55)
+
+	error  shift 145
+	ELSE  shift 146
+	ENDIF  shift 147
+	.  error
+
+
+state 133
+	funcion : headerFUNCTION $$1 '{' conjuntoSentencias RETURN '(' . expresion ')' '.' '}'  (13)
+
+	error  shift 56
+	CTE  shift 43
+	ID  shift 44
+	'-'  shift 45
+	.  error
+
+	expresion  goto 148
+	invokeFUNCTION  goto 47
+	cte  goto 49
+	factor  goto 50
+	termino  goto 51
+
+
+state 134
+	bloqueSentencia : error . conjuntoSentencia END '.'  (40)
+
+	error  shift 140
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 141
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	conjuntoSentencia  goto 149
+	encabezadoSWITCH  goto 23
+
+
+state 135
+	bloqueSentencia : BEGIN . conjuntoSentencia END '.'  (39)
+	bloqueSentencia : BEGIN . conjuntoSentencia error '.'  (41)
+
+	error  shift 140
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 141
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	conjuntoSentencia  goto 150
+	encabezadoSWITCH  goto 23
+
+
+state 136
+	lineaCASE : error cte ':' bloqueSentencia . '.'  (58)
+
+	'.'  shift 151
+	.  error
+
+
+state 137
+	lineaCASE : CASE error ':' bloqueSentencia . '.'  (59)
+
+	'.'  shift 152
+	.  error
+
+
+state 138
+	lineaCASE : CASE cte error bloqueSentencia . '.'  (60)
+
+	'.'  shift 153
+	.  error
+
+
+state 139
+	lineaCASE : CASE cte ':' $$2 . bloqueSentencia '.'  (57)
+
+	error  shift 134
+	BEGIN  shift 135
+	.  error
+
+	bloqueSentencia  goto 154
+
+
+state 140
+	conjuntoSentencia : error .  (32)
+
+	.  reduce 32
+
+
+state 141
+	conjuntoSentencia : sentencia .  (30)
+
+	.  reduce 30
+
+
+state 142
+	conjuntoSentencia : conjuntoSentencia . sentencia  (31)
+	bloqueSentenciaThen : error conjuntoSentencia . END '.'  (34)
+
+	IF  shift 2
+	END  shift 155
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 156
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 143
+	conjuntoSentencia : conjuntoSentencia . sentencia  (31)
+	bloqueSentenciaThen : BEGIN conjuntoSentencia . END '.'  (33)
+	bloqueSentenciaThen : BEGIN conjuntoSentencia . error '.'  (35)
+
+	error  shift 157
+	IF  shift 2
+	END  shift 158
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 156
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 144
+	sentenciaIF : IF '(' condicion ')' error bloqueSentenciaThen ENDIF .  (54)
+
+	.  reduce 54
+
+
+state 145
+	sentenciaIF : IF '(' condicion ')' THEN bloqueSentenciaThen error .  (55)
+
+	.  reduce 55
+
+
+state 146
+	sentenciaIF : IF '(' condicion ')' THEN bloqueSentenciaThen ELSE . bloqueSentenciaElse ENDIF  (52)
+
+	error  shift 159
+	BEGIN  shift 160
+	.  error
+
+	bloqueSentenciaElse  goto 161
+
+
+state 147
+	sentenciaIF : IF '(' condicion ')' THEN bloqueSentenciaThen ENDIF .  (53)
+
+	.  reduce 53
+
+
+state 148
+	funcion : headerFUNCTION $$1 '{' conjuntoSentencias RETURN '(' expresion . ')' '.' '}'  (13)
+	expresion : expresion . '+' termino  (81)
+	expresion : expresion . '-' termino  (82)
+
+	'+'  shift 85
+	'-'  shift 86
+	')'  shift 162
+	.  error
+
+
+state 149
+	conjuntoSentencia : conjuntoSentencia . sentencia  (31)
+	bloqueSentencia : error conjuntoSentencia . END '.'  (40)
+
+	IF  shift 2
+	END  shift 163
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 156
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 150
+	conjuntoSentencia : conjuntoSentencia . sentencia  (31)
+	bloqueSentencia : BEGIN conjuntoSentencia . END '.'  (39)
+	bloqueSentencia : BEGIN conjuntoSentencia . error '.'  (41)
+
+	error  shift 164
+	IF  shift 2
+	END  shift 165
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 156
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 151
+	lineaCASE : error cte ':' bloqueSentencia '.' .  (58)
+
+	.  reduce 58
+
+
+state 152
+	lineaCASE : CASE error ':' bloqueSentencia '.' .  (59)
+
+	.  reduce 59
+
+
+state 153
+	lineaCASE : CASE cte error bloqueSentencia '.' .  (60)
+
+	.  reduce 60
+
+
+state 154
+	lineaCASE : CASE cte ':' $$2 bloqueSentencia . '.'  (57)
+
+	'.'  shift 166
+	.  error
+
+
+state 155
+	bloqueSentenciaThen : error conjuntoSentencia END . '.'  (34)
+
+	'.'  shift 167
+	.  error
+
+
+state 156
+	conjuntoSentencia : conjuntoSentencia sentencia .  (31)
+
+	.  reduce 31
+
+
+state 157
+	bloqueSentenciaThen : BEGIN conjuntoSentencia error . '.'  (35)
+
+	'.'  shift 168
+	.  error
+
+
+state 158
+	bloqueSentenciaThen : BEGIN conjuntoSentencia END . '.'  (33)
+
+	'.'  shift 169
+	.  error
+
+
+state 159
+	bloqueSentenciaElse : error . conjuntoSentencia END '.'  (37)
+
+	error  shift 140
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 141
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	conjuntoSentencia  goto 170
+	encabezadoSWITCH  goto 23
+
+
+state 160
+	bloqueSentenciaElse : BEGIN . conjuntoSentencia END '.'  (36)
+	bloqueSentenciaElse : BEGIN . conjuntoSentencia error '.'  (38)
+
+	error  shift 140
+	IF  shift 2
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 141
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	conjuntoSentencia  goto 171
+	encabezadoSWITCH  goto 23
+
+
+state 161
+	sentenciaIF : IF '(' condicion ')' THEN bloqueSentenciaThen ELSE bloqueSentenciaElse . ENDIF  (52)
+
+	ENDIF  shift 172
+	.  error
+
+
+state 162
+	funcion : headerFUNCTION $$1 '{' conjuntoSentencias RETURN '(' expresion ')' . '.' '}'  (13)
+
+	'.'  shift 173
+	.  error
+
+
+state 163
+	bloqueSentencia : error conjuntoSentencia END . '.'  (40)
+
+	'.'  shift 174
+	.  error
+
+
+state 164
+	bloqueSentencia : BEGIN conjuntoSentencia error . '.'  (41)
+
+	'.'  shift 175
+	.  error
+
+
+state 165
+	bloqueSentencia : BEGIN conjuntoSentencia END . '.'  (39)
+
+	'.'  shift 176
+	.  error
+
+
+state 166
+	lineaCASE : CASE cte ':' $$2 bloqueSentencia '.' .  (57)
+
+	.  reduce 57
+
+
+state 167
+	bloqueSentenciaThen : error conjuntoSentencia END '.' .  (34)
+
+	.  reduce 34
+
+
+state 168
+	bloqueSentenciaThen : BEGIN conjuntoSentencia error '.' .  (35)
+
+	.  reduce 35
+
+
+state 169
+	bloqueSentenciaThen : BEGIN conjuntoSentencia END '.' .  (33)
+
+	.  reduce 33
+
+
+state 170
+	conjuntoSentencia : conjuntoSentencia . sentencia  (31)
+	bloqueSentenciaElse : error conjuntoSentencia . END '.'  (37)
+
+	IF  shift 2
+	END  shift 177
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 156
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 171
+	conjuntoSentencia : conjuntoSentencia . sentencia  (31)
+	bloqueSentenciaElse : BEGIN conjuntoSentencia . END '.'  (36)
+	bloqueSentenciaElse : BEGIN conjuntoSentencia . error '.'  (38)
+
+	error  shift 178
+	IF  shift 2
+	END  shift 179
+	OUT  shift 3
+	SWITCH  shift 4
+	ID  shift 7
+	.  error
+
+	sentencia  goto 156
+	sentenciaDeclarativa  goto 15
+	declaracionVariables  goto 16
+	listaVariables  goto 17
+	sentenciaEjecutable  goto 18
+	sentenciaIF  goto 19
+	sentenciaSalida  goto 20
+	sentenciaSWITCH  goto 21
+	asignacion  goto 22
+	encabezadoSWITCH  goto 23
+
+
+state 172
+	sentenciaIF : IF '(' condicion ')' THEN bloqueSentenciaThen ELSE bloqueSentenciaElse ENDIF .  (52)
+
+	.  reduce 52
+
+
+state 173
+	funcion : headerFUNCTION $$1 '{' conjuntoSentencias RETURN '(' expresion ')' '.' . '}'  (13)
+
+	'}'  shift 180
+	.  error
+
+
+state 174
+	bloqueSentencia : error conjuntoSentencia END '.' .  (40)
+
+	.  reduce 40
+
+
+state 175
+	bloqueSentencia : BEGIN conjuntoSentencia error '.' .  (41)
+
+	.  reduce 41
+
+
+state 176
+	bloqueSentencia : BEGIN conjuntoSentencia END '.' .  (39)
+
+	.  reduce 39
+
+
+state 177
+	bloqueSentenciaElse : error conjuntoSentencia END . '.'  (37)
+
+	'.'  shift 181
+	.  error
+
+
+state 178
+	bloqueSentenciaElse : BEGIN conjuntoSentencia error . '.'  (38)
+
+	'.'  shift 182
+	.  error
+
+
+state 179
+	bloqueSentenciaElse : BEGIN conjuntoSentencia END . '.'  (36)
+
+	'.'  shift 183
+	.  error
+
+
+state 180
+	funcion : headerFUNCTION $$1 '{' conjuntoSentencias RETURN '(' expresion ')' '.' '}' .  (13)
+
+	.  reduce 13
+
+
+state 181
+	bloqueSentenciaElse : error conjuntoSentencia END '.' .  (37)
+
+	.  reduce 37
+
+
+state 182
+	bloqueSentenciaElse : BEGIN conjuntoSentencia error '.' .  (38)
+
+	.  reduce 38
+
+
+state 183
+	bloqueSentenciaElse : BEGIN conjuntoSentencia END '.' .  (36)
+
+	.  reduce 36
+
+
+37 terminals, 34 nonterminals
+87 grammar rules, 184 states

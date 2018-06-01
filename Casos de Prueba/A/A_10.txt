@@ -1,0 +1,3 @@
+result:uinteger.
+
+result=SUMA().

@@ -1,0 +1,20 @@
+IF(2>1)THEN
+BEGIN
+OUT("Si...2 es mayor que 1").
+END.
+ELSE
+BEGIN
+OUT("NO ES CORRECTO QUE 2 sea mayor que 1").
+END.
+ENDIF
+
+
+IF(2,2>1,0)THEN
+BEGIN
+OUT("Si...2.2 es mayor que 1.1").
+END.
+ELSE
+BEGIN
+OUT("NO ES CORRECTO QUE 2.2 sea mayor que 1.1").
+END.
+ENDIF

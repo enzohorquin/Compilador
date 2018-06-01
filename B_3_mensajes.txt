@@ -1,0 +1,22 @@
+REGLAS:
+------------------------------
+
+Linea 3: sentencia OUT
+Linea 5: sentencia IF.
+Linea 8: Programa leido correctamente.
+
+ERRORES DEL ANALIZADOR LEXICO:
+------------------------------
+
+No se encontraron errores lexicos.
+
+ERRORES SINTACTICOS:
+--------------------
+
+No se detectaron errores sintacticos.
+
+ERRORES SEMANTICOS:
+--------------------
+
+No se detectaron errores semanticos.
+

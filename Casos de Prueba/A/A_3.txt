@@ -1,0 +1,3 @@
+[INVOCACION A FUNCION QUE NO EXISTE]
+x:uinteger.
+x=SUMA().

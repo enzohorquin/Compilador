@@ -1,0 +1,131 @@
+TOKENS RECONOCIDOS POR EL ANALIZADOR LEXICO:
+--------------------------------------------
+
+Lexema:             Uso:
+
+x                   id
+:                   :
+uinteger            uinteger
+.                   .
+x                   id
+=                   =
+1                   cte
+.                   .
+y                   id
+:                   :
+double              double
+.                   .
+y                   id
+=                   =
+1.1                 cte
+.                   .
+switch              switch
+(                   (
+x                   id
+)                   )
+{                   {
+case                case
+1                   cte
+:                   :
+begin               begin
+out                 out
+(                   (
+entro case 1        cadMulti
+)                   )
+.                   .
+end                 end
+.                   .
+.                   .
+case                case
+2                   cte
+:                   :
+begin               begin
+out                 out
+(                   (
+entro case 2        cadMulti
+)                   )
+.                   .
+end                 end
+.                   .
+.                   .
+case                case
+3                   cte
+:                   :
+begin               begin
+out                 out
+(                   (
+entro case 3        cadMulti
+)                   )
+.                   .
+end                 end
+.                   .
+.                   .
+case                case
+4                   cte
+:                   :
+begin               begin
+out                 out
+(                   (
+entro case 4        cadMulti
+)                   )
+.                   .
+end                 end
+.                   .
+.                   .
+}                   }
+.                   .
+switch              switch
+(                   (
+y                   id
+)                   )
+{                   {
+case                case
+1.1                 cte
+:                   :
+begin               begin
+out                 out
+(                   (
+entro case 1,1      cadMulti
+)                   )
+.                   .
+end                 end
+.                   .
+.                   .
+case                case
+2.1                 cte
+:                   :
+begin               begin
+out                 out
+(                   (
+entro case 2,1      cadMulti
+)                   )
+.                   .
+end                 end
+.                   .
+.                   .
+case                case
+3.1                 cte
+:                   :
+begin               begin
+out                 out
+(                   (
+entro case 3,1      cadMulti
+)                   )
+.                   .
+end                 end
+.                   .
+.                   .
+case                case
+4.1                 cte
+:                   :
+begin               begin
+out                 out
+(                   (
+entro case 4,1      cadMulti
+)                   )
+.                   .
+end                 end
+.                   .
+.                   .
+}                   }
+.                   .

@@ -1,0 +1,26 @@
+TABLA DE SIMBOLOS:
+------------------
+
+Lexema:                               Tipo:                                 Uso:
+
+x@main@suma                           double                            variable
+@out3                                 string                                 out
+13.0                                  double                                 cte
+@out2                                 string                                 out
+no tendria q entrar                   string                            cadMulti
+@out1                                 string                                 out
+correcto perro                        string                            cadMulti
+2.0                                   double                                 cte
+@aux4                                 double                            auxiliar
+4.0                                   double                                 cte
+@aux3                                 double                            auxiliar
+@aux2                                 double                            auxiliar
+@aux1                                 double                            auxiliar
+x@main                                double                            variable
+hola                                  string                            cadMulti
+y@main                                double                            variable
+1.0                                   double                                 cte
+fc@main@suma                          double                            variable
+suma@main                             double                             funcion
+3.0                                   double                                 cte
+fd@main@suma                          double                            variable

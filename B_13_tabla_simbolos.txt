@@ -1,0 +1,31 @@
+TABLA DE SIMBOLOS:
+------------------
+
+Lexema:                               Tipo:                                 Uso:
+
+fd@main@sumados                       double                            variable
+x@main@suma                           uinteger                          variable
+@out2                                 string                                 out
+@out1                                 string                                 out
+@aux6                                 uinteger                          auxiliar
+@aux5                                 double                            auxiliar
+y es igual a 9                        string                            cadMulti
+@aux4                                 double                            auxiliar
+@aux3                                 uinteger                          auxiliar
+@aux2                                 uinteger                          auxiliar
+@aux1                                 uinteger                          auxiliar
+x@main                                uinteger                          variable
+sumados@main                          double                             funcion
+fc@main@sumados                       double                            variable
+y@main                                uinteger                          variable
+1.1                                   double                                 cte
+fc@main@suma                          uinteger                          variable
+9                                     uinteger                               cte
+3.3                                   double                                 cte
+z@main                                double                            variable
+suma@main                             uinteger                           funcion
+5                                     uinteger                               cte
+4                                     uinteger                               cte
+y no es igual a 9                     string                            cadMulti
+1                                     uinteger                               cte
+fd@main@suma                          uinteger                          variable

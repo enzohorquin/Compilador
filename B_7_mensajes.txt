@@ -1,0 +1,34 @@
+REGLAS:
+------------------------------
+
+Linea 1: sentencia Declarativa.
+Linea 2: Asignación.
+Linea 3: sentencia Declarativa.
+Linea 4: Asignación.
+Linea 7: sentencia OUT
+Linea 8: sentencia OUT
+Linea 9: sentencia OUT
+Linea 10: sentencia OUT
+Linea 11: sentencia SWITCH CASE
+Linea 14: sentencia OUT
+Linea 15: sentencia OUT
+Linea 16: sentencia OUT
+Linea 17: sentencia OUT
+Linea 18: sentencia SWITCH CASE
+Linea 20: Programa leido correctamente.
+
+ERRORES DEL ANALIZADOR LEXICO:
+------------------------------
+
+No se encontraron errores lexicos.
+
+ERRORES SINTACTICOS:
+--------------------
+
+No se detectaron errores sintacticos.
+
+ERRORES SEMANTICOS:
+--------------------
+
+No se detectaron errores semanticos.
+

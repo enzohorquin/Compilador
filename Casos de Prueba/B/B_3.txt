@@ -1,0 +1,6 @@
+IF(2>1)THEN
+BEGIN
+OUT("SI, 2 es mayor que 1").
+END.
+ENDIF
+

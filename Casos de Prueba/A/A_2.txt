@@ -1,0 +1,7 @@
+[DOBLE DECLARACION DE LA VARIABLE X]
+x,y:uinteger.
+w:double.
+x=2.
+y=3.
+x:uinteger.
+w:double.
